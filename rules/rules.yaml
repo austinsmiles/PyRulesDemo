@@ -1,0 +1,14 @@
+CopyYear:
+  extension: componentOperation
+  operation: copy
+  sourceComponent: ford
+  sourceAttribute: year
+  destinationComponent: jeep
+  destinationAttribute: year
+CopyModel:
+  extension: componentOperation
+  operation: copy
+  sourceComponent: jeep
+  sourceAttribute: model
+  destinationComponent: ford
+  destinationAttribute: model

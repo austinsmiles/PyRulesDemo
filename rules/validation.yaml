@@ -1,0 +1,37 @@
+AddBrandLabel:
+  extension: componentOperation
+  operation: validation
+  validationType: ALL
+  actionList:
+    ActionNewLabel:
+      extension: componentOperation
+      operation: copy
+      sourceComponent: new_jeep
+      sourceAttribute: label
+      destinationComponent: jeep
+      destinationAttribute: label
+    ActionNewBrand:
+      extension: componentOperation
+      operation: copy
+      sourceComponent: new_jeep
+      sourceAttribute: brand
+      destinationComponent: jeep
+      destinationAttribute: brand
+  conditionList :
+    ConditionNew:
+      extension: componentOperation
+      operation: equals
+      sourceComponent: jeep
+      sourceAttribute: year
+      destinationValue: 2020
+    ConditionJeep:
+      extension: componentOperation
+      operation: equals
+      sourceComponent: jeep
+      sourceAttribute: brand
+      destinationValue: Jeep
+#SendMsg:
+#  extension: transportOperation
+#  operation: send
+#  componentName: jeep
+#  topicName: myfirstkafkatopic
