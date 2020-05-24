@@ -11,7 +11,8 @@ def load_config(config_file):
 
 
 #rules=load_config('../rules/rules.yaml')
-rules=load_config('../../rules/validation.yaml')
+#rules=load_config('../../rules/validation.yaml')
+rules=load_config('../../rules/mongoRuleSample.yaml')
 
 for rule in rules.values():
     extension_map[rule["extension"]].process(function=rule["operation"], **rule)

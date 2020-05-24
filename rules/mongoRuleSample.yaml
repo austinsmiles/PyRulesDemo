@@ -1,0 +1,22 @@
+CreateMongoKeyComponent:
+  extension: mongoOperation
+  operation: createKey
+  keyName: empid_name
+  keyAttributeList:
+    empIdKey:
+      operation: createSingleKey
+      keyAttributeName: empId
+      keyAttributeValueComponentName: emp
+      keyAttributeValueComponentAttribute: empIdf
+      matchType: equals
+    empNameKey:
+      operation: createSingleKey
+      keyAttributeName: name
+      keyAttributeValueComponentName: emp
+      keyAttributeValueComponentAttribute: namef
+      matchType: startsWith
+GetEmployeeRec:
+  extension: mongoOperation
+  collectionName: employees
+  operation: read
+  keyName: empid_name
