@@ -19,8 +19,9 @@ for k, v in pkg.components.config.items():
     print(k, v)
 import pkg.extension.componentOperations as componentOperation
 import pkg.extension.transportOperations as transportOperation
-
+import pkg.extension.mongoOperations as mongoOperation
 extension_map = {
     'componentOperation': componentOperation,
-    'transportOperation': transportOperation
+    'transportOperation': transportOperation,
+    'mongoOperation': mongoOperation
 }

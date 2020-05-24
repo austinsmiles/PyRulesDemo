@@ -25,5 +25,9 @@ new_jeep = {
     "year": 2020,
     "label": "NEW"
 }
+emp={
+    "empIdf": 100,
+    "namef": "Cat"
+}
 config={}
-componentMap = {"ford": ford, "jeep": jeep, "bmw": bmw,'new_jeep':new_jeep}
+componentMap = {"ford": ford, "jeep": jeep, "bmw": bmw,'new_jeep':new_jeep,'emp':emp}
