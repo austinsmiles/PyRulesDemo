@@ -8,12 +8,12 @@ def process(function, **args):
 
 def printArg(**arg):
     log.info("Src component : " + componentMap[arg["sourceComponent"]]["brand"] + "--" +
-          componentMap[arg["sourceComponent"]]["model"]
-          + "--" + str(componentMap[arg["sourceComponent"]]["year"]) + "--" + str(
+             componentMap[arg["sourceComponent"]]["model"]
+             + "--" + str(componentMap[arg["sourceComponent"]]["year"]) + "--" + str(
         componentMap[arg["sourceComponent"]]["label"]))
     log.info("Dst component : " + componentMap[arg["destinationComponent"]]["brand"] + "--" +
-          componentMap[arg["destinationComponent"]]["model"]
-          + "--" + str(componentMap[arg["destinationComponent"]]["year"]) + "--" + str(
+             componentMap[arg["destinationComponent"]]["model"]
+             + "--" + str(componentMap[arg["destinationComponent"]]["year"]) + "--" + str(
         componentMap[arg["destinationComponent"]]["label"]))
 
 
@@ -60,9 +60,23 @@ def validation(**arg):
                 process(function=action["operation"], **action)
 
 
+def delete(**arg):
+    if "componentNameList" in arg:
+        for componentName in arg["componentNameList"].split(','):
+            if(componentName in componentMap):
+                componentMap.pop(componentName)
+            else:
+                log.warning(f"Component does not exist in the componentMap. Cannot remove {componentName}")
+    elif "componentName" in arg and arg["componentName"] in componentMap:
+        componentMap.pop(arg["componentName"])
+    else:
+        log.warning(f"Component does not exist in the componentMap. Cannot remove " + arg["componentName"])
+
+
 action_function_map = {
     'copy': copy,
     'create': create,
+    'delete': delete,
     'equals': equals,
     'validation': validation
 }

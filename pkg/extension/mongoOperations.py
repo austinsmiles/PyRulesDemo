@@ -28,11 +28,12 @@ def createKey(**args):
 
 def read(**args):
     mKey = componentMap[args["keyName"]]
-    log.info(mKey)
     mCol = mongoDb[args["collectionName"]]
-    rec = mCol.find(mKey, {'_id': 0})
-    for x in rec:
-        log.info(x)
+    cur = mCol.find(mKey, {'_id': 0})
+    compList=[]
+    for x in cur:
+        compList.append(x)
+    componentMap[args["componentName"]]=compList
 
 
 action_function_map = {

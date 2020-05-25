@@ -20,3 +20,9 @@ GetEmployeeRec:
   collectionName: employees
   operation: read
   keyName: empid_name
+  componentName: mongoEmployee_d
+SendMsg:
+  extension: transportOperation
+  operation: send
+  componentName: mongoEmployee_d
+  topicName: myfirstkafkatopic

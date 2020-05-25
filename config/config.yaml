@@ -1,3 +1,9 @@
 kafka:
   host: localhost
   port: 9092
+#log:
+#  format: %(asctime)s:%(filename)s:%(funcName)s:%(levelname)s :%(message)s
+mongo:
+  host: localhost
+  port: 27017
+  database: myorg

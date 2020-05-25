@@ -1,0 +1,33 @@
+EmployeeCSVReader:
+  extension: fileOperation
+  operation: read
+  directory: <your_directory_path>
+  componentName: csv_d
+  #filePattern: *.csv
+  extensionList:
+    CreateMongoKeyComponent:
+      extension: mongoOperation
+      operation: createKey
+      keyName: empid_k
+      keyAttributeList:
+        empIdKey:
+          operation: createSingleKey
+          keyAttributeName: empId
+          keyAttributeValueComponentName: csv_d
+          keyAttributeValueComponentAttribute: empId
+          matchType: equals
+    GetEmployeeRec:
+      extension: mongoOperation
+      collectionName: employees
+      operation: read
+      keyName: empid_k
+      componentName: mongoEmployee_d
+    SendMsg:
+      extension: transportOperation
+      operation: send
+      componentName: mongoEmployee_d
+      topicName: myfirstkafkatopic
+    ClearComponents:
+      extension: componentOperation
+      operation: delete
+      componentNameList: csv_d,mongoEmployee_d,empid_k

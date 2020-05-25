@@ -1,5 +1,6 @@
 from pkg.extension import *
 from pkg.components import componentMap
+from pkg.common.utils import log
 
 
 def process(function, **args):
@@ -8,7 +9,7 @@ def process(function, **args):
 
 def send(**arg):
     msg = json.dumps(componentMap[arg["componentName"]])
-    print(f"Msg to send: {msg}")
+    # log.info(f"Msg to send: {msg}")
     future = kafkaProducer.send(arg["topicName"], msg.encode('ascii'))
     kafkaProducer.flush()
 

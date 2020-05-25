@@ -5,10 +5,11 @@ from kafka.errors import KafkaError
 import pkg.components
 from pymongo import MongoClient
 
-# kafka=pkg.components.config["kafka"]
-# print(f"Initializing kafka producer @ broker "+pkg.components.config["kafka"]["host"]+":"+str(pkg.components.config["kafka"]["port"]))
-# kafkaServerUrl=pkg.components.config["kafka"]["host"]+":"+str(pkg.components.config["kafka"]["port"])
-# kafkaProducer = KafkaProducer(bootstrap_servers=[kafkaServerUrl])
+if "kafka" in pkg.components.config:
+    kafka=pkg.components.config["kafka"]
+    kafkaServerUrl=pkg.components.config["kafka"]["host"]+":"+str(pkg.components.config["kafka"]["port"])
+    kafkaProducer = KafkaProducer(bootstrap_servers=[kafkaServerUrl])
 
-client = MongoClient("mongodb://localhost:27017")
-mongoDb = client.myorg
+if "mongo" in pkg.components.config:
+    client = MongoClient("mongodb://"+pkg.components.config["mongo"]["host"]+":"+str(pkg.components.config["mongo"]["port"]))
+    mongoDb = client[pkg.components.config["mongo"]["database"]]

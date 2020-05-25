@@ -10,9 +10,10 @@ def read_yaml(config_file):
             print(exc)
 
 
-# rules=load_config('../rules/rules.yaml')
-# rules=load_config('../../rules/validation.yaml')
+# rules=read_yaml('../rules/rules.yaml')
+# rules=read_yaml('../../rules/validation.yaml')
 rules = read_yaml('../../rules/mongoRuleSample.yaml')
+
 
 for rule in rules.values():
     extension_map[rule["extension"]].process(function=rule["operation"], **rule)
