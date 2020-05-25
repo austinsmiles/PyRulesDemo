@@ -10,10 +10,10 @@ def createSingleKey(**args):
     mKey = {}
     if args["matchType"] == 'equals':
         mKey[args["keyAttributeName"]] = str(
-            componentMap[args["keyAttributeValueComponentName"]][args["keyAttributeValueComponentAttribute"]])
+            componentMap[args["sourceComponentName"]][args["sourceComponentAttribute"]])
     elif args["matchType"] == 'startsWith':
         valDict = {}
-        valDict["$regex"] = "^" + str(componentMap[args["keyAttributeValueComponentName"]][
+        valDict["$regex"] = "^" + str(componentMap[args["sourceComponentName"]][
                                           args["keyAttributeValueComponentAttribute"]])
         mKey[args["keyAttributeName"]] = valDict
     return mKey

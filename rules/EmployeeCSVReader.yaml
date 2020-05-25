@@ -13,8 +13,8 @@ EmployeeCSVReader:
         empIdKey:
           operation: createSingleKey
           keyAttributeName: empId
-          keyAttributeValueComponentName: csv_d
-          keyAttributeValueComponentAttribute: empId
+          sourceComponentName: csv_d
+          sourceComponentAttribute: empId
           matchType: equals
     GetEmployeeRec:
       extension: mongoOperation
