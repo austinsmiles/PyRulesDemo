@@ -5,7 +5,8 @@ Rules can be configured in yaml files, new rules can be added/removed and existi
 1. MongoDb
 2. Apache kafka
 
-Example:
+**Example:**
+
 We shall look at the below example.
 
 1. Read a csv file with employee data (empid,name,designation,etc)
