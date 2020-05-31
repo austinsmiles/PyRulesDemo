@@ -5,20 +5,24 @@ from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 import time
 import csv
-from pkg.components import componentMap
-
-rules = read_yaml('../../rules/EmployeeCSVReader.yaml')
-
+import os
+import sys
+from pkg.components import processComponentMap
 # send this as a cmd line arg for the process to start
 
-processName = "EmployeeCSVReader"
+def initialize():
+    pkg.components.processComponentMap["rules"] = read_yaml('../../rules/' + pkg.components.processComponentMap["processName"] + '.yaml')
+    initializers=pkg.components.processComponentMap["rules"]["Initializers"]
+    for initializer in initializers.values():
+        extension_map[initializer["extension"]].process(function=initializer["operation"], componentMap=pkg.components.processComponentMap,**initializer)
 
 
 def fileWatcher():
     observer = Observer()
     eventHandler = FileSystemEventHandler()
     eventHandler.on_created = fileSystemEventHandler
-    observer.schedule(eventHandler, rules[processName]["directory"], recursive=True)
+    pName=pkg.components.processComponentMap["processName"]
+    observer.schedule(eventHandler, pkg.components.processComponentMap["rules"][pName]["directory"], recursive=True)
     observer.start()
     log.info("File watcher started")
     try:
@@ -30,14 +34,21 @@ def fileWatcher():
 
 
 def fileSystemEventHandler(event):
-    log.info(f"on_any_event called {event.src_path}")
+    log.info(f"Processing file {event.src_path}")
     # if event.eventType == 'created' or event.eventType == 'modified':
+    pName = pkg.components.processComponentMap["processName"]
+    processRules=pkg.components.processComponentMap["rules"][pName]
     with open(event.src_path, 'r') as file:
         csvRec = csv.DictReader(file)
         for rec in csvRec:
-            componentMap[rules[processName]["componentName"]] = rec
-            for rule in rules[processName]["extensionList"].values():
-                extension_map[rule["extension"]].process(function=rule["operation"], **rule)
+            componentMap={}
+            componentMap[processRules["componentName"]] = rec
+            for rule in processRules["extensionList"].values():
+                extension_map[rule["extension"]].process(function=rule["operation"],componentMap=componentMap, **rule)
+    os.remove(event.src_path)
 
 
-fileWatcher()
+if __name__ == '__main__':
+    pkg.components.processComponentMap["processName"] = sys.argv[1]
+    initialize()
+    fileWatcher()

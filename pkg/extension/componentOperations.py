@@ -1,12 +1,12 @@
-from pkg.components import componentMap
+
 from pkg.common.utils import log
 
 
-def process(function, **args):
-    return action_function_map[function](**args)
+def process(function, componentMap, **args):
+    return action_function_map[function](componentMap,**args)
 
 
-def printArg(**arg):
+def printArg(componentMap,**arg):
     log.info("Src component : " + componentMap[arg["sourceComponent"]]["brand"] + "--" +
              componentMap[arg["sourceComponent"]]["model"]
              + "--" + str(componentMap[arg["sourceComponent"]]["year"]) + "--" + str(
@@ -17,7 +17,7 @@ def printArg(**arg):
         componentMap[arg["destinationComponent"]]["label"]))
 
 
-def copy(**arg):
+def copy(componentMap,**arg):
     log.info("Before mapping:")
     printArg(**arg)
     componentMap[arg["destinationComponent"]][arg["destinationAttribute"]] \
@@ -26,11 +26,11 @@ def copy(**arg):
     printArg(**arg)
 
 
-def create(**arg):
+def create(componentMap,**arg):
     componentMap[arg["componentName"]] = arg["componentValue"]
 
 
-def equals(**arg):
+def equals(componentMap,**arg):
     if "destinationValue" in arg:
         retval = componentMap[arg["sourceComponent"]][arg["sourceAttribute"]] == arg["destinationValue"]
         return retval
@@ -40,7 +40,7 @@ def equals(**arg):
         return retval
 
 
-def validation(**arg):
+def validation(componentMap,**arg):
     if arg["validationType"] == "ALL":
         result = True
         for condition in arg["conditionList"].values():
@@ -60,10 +60,10 @@ def validation(**arg):
                 process(function=action["operation"], **action)
 
 
-def delete(**arg):
+def delete(componentMap,**arg):
     if "componentNameList" in arg:
         for componentName in arg["componentNameList"].split(','):
-            if(componentName in componentMap):
+            if componentName in componentMap:
                 componentMap.pop(componentName)
             else:
                 log.warning(f"Component does not exist in the componentMap. Cannot remove {componentName}")

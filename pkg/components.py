@@ -1,33 +1,4 @@
-ford = {
-    "brand": "Ford",
-    "model": "Mustang",
-    "year": 2019,
-    "label": "NA"
-}
-
-bmw = {
-    "brand": "bmw",
-    "model": "X3",
-    "year": 2020,
-    "label": "NA"
-}
-
-jeep = {
-    "brand": "Jeep",
-    "model": "Wrangler",
-    "year": 2020,
-    "label": "NA"
-}
-
-new_jeep = {
-    "brand": "New Jeep",
-    "model": "Wrangler",
-    "year": 2020,
-    "label": "NEW"
-}
-emp={
-    "empIdf": 100,
-    "namef": "Cat"
-}
-config={}
-componentMap = {"ford": ford, "jeep": jeep, "bmw": bmw,'new_jeep':new_jeep,'emp':emp}
+# Global configs
+config = {}
+# Components specific to the running process
+processComponentMap = {}

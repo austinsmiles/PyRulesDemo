@@ -1,7 +1,20 @@
+Initializers:
+  MongoInitializer:
+    extension: mongoOperation
+    operation: initialize
+    configName: localMongo
+    databaseName: myorg
+    processComponentName: myorgMongoClient
+  KafkaInitializer:
+    extension: transportOperation
+    operation: initialize
+    configName: localKafka
+    processComponentName : myLocalKafka
+
 EmployeeCSVReader:
   extension: fileOperation
   operation: read
-  directory: <your_directory_path>
+  directory: <your_poll_dir>
   componentName: csv_d
   #filePattern: *.csv
   extensionList:
@@ -18,6 +31,7 @@ EmployeeCSVReader:
           matchType: equals
     GetEmployeeRec:
       extension: mongoOperation
+      processComponentName: myorgMongoClient
       collectionName: employees
       operation: read
       keyName: empid_k
@@ -25,6 +39,7 @@ EmployeeCSVReader:
     SendMsg:
       extension: transportOperation
       operation: send
+      processComponentName : myLocalKafka
       componentName: mongoEmployee_d
       topicName: myfirstkafkatopic
     ClearComponents:
