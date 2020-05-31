@@ -44,7 +44,7 @@ def validation(componentMap,**arg):
     if arg["validationType"] == "ALL":
         result = True
         for condition in arg["conditionList"].values():
-            result = process(function=condition["operation"], **condition)
+            result = process(function=condition["operation"],componentMap=componentMap, **condition)
             if result is False: break
         if result is True:
             for action in arg["actionList"].values():
@@ -53,7 +53,7 @@ def validation(componentMap,**arg):
     if arg["validationType"] == "ANY":
         result = False
         for condition in arg["conditionList"].values():
-            result = process(function=condition["operation"], **condition)
+            result = process(function=condition["operation"],componentMap=componentMap, **condition)
             if result is True: break
         if result is True:
             for action in arg["actionList"].values():
