@@ -1,0 +1,103 @@
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+<style>
+    table,
+    th,
+    td {
+        border: 1px solid grey;
+        border-collapse: collapse;
+        padding: 5px;
+    }
+
+    table tr:nth-child(odd) {
+        background-color: #f1f1f1;
+    }
+
+    table tr:nth-child(even) {
+        background-color: #ffffff;
+    }
+</style>
+
+<body>
+    <div ng-app="myApp">
+    <div ng-controller="htmlResponseInitCtrl">
+            <br>response : {{response_status}}
+            <br>status:{{statuscode}}
+            Initializer :
+                    <table>
+                        <tr>
+                            <th>Name</th>
+                            <th>Extension</th>
+                            <th>Operation</th>
+                            <th>ConfigName</th>
+                        </tr>
+                        <tr ng-repeat="(k2,v2) in content">
+                            <td>{{ k2 }}</td>
+                            <td>{{ v2.extension }}</td>
+                            <td>{{ v2.operation }}</td>
+                            <td>{{ v2.configName}}</td>
+                        </tr>
+                    </table> 
+            
+        
+    </div>
+    <div ng-controller="htmlResponseExtCtrl">
+        <br>response : {{extresponse_status}}
+        <br>status:{{extstatuscode}}
+        Extensions :
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Extension</th>
+                <th>Operation</th>
+                <th>Parameters</th>
+            </tr>
+            <tr ng-repeat="(k2,v2) in extcontent">
+                <td>{{ k2 }}</td>
+                <td>{{ v2.extension }}</td>
+                <td>{{ v2.operation }}</td>
+                <td>{{v2.configName}}</td>
+                </tr>
+        </table> 
+    </div>
+
+</div>
+</div>
+
+    <script>
+        var app = angular.module('myApp', ["ngRoute"]);
+
+        // to use the $http service, pass it as a parameter here
+        app.controller('htmlResponseInitCtrl', function ($scope, $http) {
+            // use the response object  which is part of $http
+            $http.get('http://localhost:5000/initializers').then(function (response) {
+                $scope.content = response.data;
+                $scope.statuscode = response.status;
+                $scope.response_status = "Response success";
+            },
+            function (response) {
+                // Second function handles error
+                $scope.statuscode = response.status;
+                $scope.response_status = "Something went wrong";
+            });
+        });
+        app.controller('htmlResponseExtCtrl', function ($scope, $http) {
+            // use the response object  which is part of $http
+            $http.get('http://localhost:5000/extensions').then(function (response) {
+                $scope.extcontent = response.data;
+                $scope.extstatuscode = response.status;
+                $scope.extresponse_status = "Response success";
+            },
+            function (response) {
+                // Second function handles error
+                $scope.extstatuscode = response.status;
+                $scope.extresponse_status = "Something went wrong";
+            });
+        });
+
+    
+    </script>
+</body>
+
+</html>
