@@ -1,10 +1,21 @@
 Initializers:
+  MongoInitializerIncorrect:
+    extension: mongoOperation
+    operation: initialize
+    configName: localMongos
+    databaseName: org
+    processComponentName: orgMongoClientDoesnotExist
   MongoInitializer:
     extension: mongoOperation
     operation: initialize
     configName: localMongo
-    databaseName: myorg
-    processComponentName: myorgMongoClient
+    databaseName: org
+    processComponentName: orgMongoClient
+#  KafkaInitializerIncorrect:
+#    extension: transportOperation
+#    operation: initialize
+#    configName: localKafkas
+#    processComponentName: myLocalKafkaWrong
   KafkaInitializer:
     extension: transportOperation
     operation: initialize
@@ -32,7 +43,7 @@ EmployeeCSVReader:
     GetEmployeeRec:
       extension: mongoOperation
       processComponentName: myorgMongoClient
-      collectionName: employees
+      collectionName: employeeinfo
       operation: read
       keyName: empid_k
       componentName: mongoEmployee_d
