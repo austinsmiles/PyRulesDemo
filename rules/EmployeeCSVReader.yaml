@@ -25,8 +25,7 @@ Initializers:
 EmployeeCSVReader:
   extension: fileOperation
   operation: read
-  directory: C:\Users\007\Documents\poll
-  #directory: /data
+  directory: /data
   componentName: csv_d
   #filePattern: *.csv
   extensionList:
