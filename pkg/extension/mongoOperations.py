@@ -36,7 +36,10 @@ def create(componentMap, **arg):
     processComponentName = arg["processComponentName"]
     collectionName = arg["collectionName"]
     mCol = pkg.components.processComponentMap[processComponentName][collectionName]
-    mCol.insert_one(componentMap[arg["componentName"]])
+    if type(componentMap[arg["componentName"]]) is dict:
+        mCol.insert_one(componentMap[arg["componentName"]])
+    elif type(componentMap[arg["componentName"]]) is list:
+        mCol.insert_many(componentMap[arg["componentName"]])
 
 def readOne(componentMap, **arg):
     mKey = componentMap[arg["keyName"]]
