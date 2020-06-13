@@ -1,8 +1,9 @@
 localKafka:
-  host: localhost
+  host: host.docker.internal
   port: 9092
 #log:
 #  format: %(asctime)s:%(filename)s:%(funcName)s:%(levelname)s :%(message)s
 localMongo:
+  #host: host.docker.internal
   host: localhost
   port: 27017
