@@ -32,6 +32,19 @@ def createKey(componentMap, **arg):
         mKey.update(process(function=attrib["operation"], componentMap=componentMap, **attrib))
     componentMap[arg["keyName"]] = mKey
 
+def create(componentMap, **arg):
+    processComponentName = arg["processComponentName"]
+    collectionName = arg["collectionName"]
+    mCol = pkg.components.processComponentMap[processComponentName][collectionName]
+    mCol.insert_one(componentMap[arg["componentName"]])
+
+def readOne(componentMap, **arg):
+    mKey = componentMap[arg["keyName"]]
+    processComponentName = arg["processComponentName"]
+    collectionName = arg["collectionName"]
+    mCol = pkg.components.processComponentMap[processComponentName][collectionName]
+    elem = mCol.find_one(mKey, {'_id': 0})
+    componentMap[arg["componentName"]] = elem
 
 def read(componentMap, **arg):
     mKey = componentMap[arg["keyName"]]
@@ -67,6 +80,8 @@ def initialize(componentMap, **arg):
 
 action_function_map = {
     'read': read,
+    'readOne': readOne,
+    'create':create,
     'createKey': createKey,
     'createSingleKey': createSingleKey,
     'initialize': initialize

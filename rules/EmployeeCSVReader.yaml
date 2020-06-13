@@ -1,10 +1,10 @@
 Initializers:
-  MongoInitializerIncorrect:
-    extension: mongoOperation
-    operation: initialize
-    configName: localMongos
-    databaseName: org
-    processComponentName: orgMongoClientDoesnotExist
+#  MongoInitializerIncorrect:
+#    extension: mongoOperation
+#    operation: initialize
+#    configName: localMongos
+#    databaseName: org
+#    processComponentName: orgMongoClientDoesnotExist
   MongoInitializer:
     extension: mongoOperation
     operation: initialize
@@ -16,16 +16,17 @@ Initializers:
 #    operation: initialize
 #    configName: localKafkas
 #    processComponentName: myLocalKafkaWrong
-  KafkaInitializer:
-    extension: transportOperation
-    operation: initialize
-    configName: localKafka
-    processComponentName : myLocalKafka
+#  KafkaInitializer:
+#    extension: transportOperation
+#    operation: initialize
+#    configName: localKafka
+#    processComponentName : myLocalKafka
 
 EmployeeCSVReader:
   extension: fileOperation
   operation: read
-  directory: <your_poll_dir>
+  directory: C:\Users\007\Documents\poll
+  #directory: /data
   componentName: csv_d
   #filePattern: *.csv
   extensionList:
@@ -42,18 +43,50 @@ EmployeeCSVReader:
           matchType: equals
     GetEmployeeRec:
       extension: mongoOperation
-      processComponentName: myorgMongoClient
+      processComponentName: orgMongoClient
       collectionName: employeeinfo
-      operation: read
+      operation: readOne
       keyName: empid_k
       componentName: mongoEmployee_d
-    SendMsg:
-      extension: transportOperation
-      operation: send
-      processComponentName : myLocalKafka
-      componentName: mongoEmployee_d
-      topicName: myfirstkafkatopic
-    ClearComponents:
+#    SendMsg:
+#      extension: transportOperation
+#      operation: send
+#      processComponentName : myLocalKafka
+#      componentName: mongoEmployee_d
+#      topicName: myfirstkafkatopic
+    CreateMovieProfileComponent:
       extension: componentOperation
-      operation: delete
-      componentNameList: csv_d,mongoEmployee_d,empid_k
+      operation: create
+      componentName: mongoMovie_d
+    SetMovieProfileName:
+      extension: componentOperation
+      operation: copy
+      sourceComponent: csv_d
+      sourceAttribute: movie
+      destinationComponent: mongoMovie_d
+      destinationAttribute: movieName
+    SetMovieProfileYear:
+      extension: componentOperation
+      operation: copy
+      sourceComponent: csv_d
+      sourceAttribute: year
+      destinationComponent: mongoMovie_d
+      destinationAttribute: year
+    SetMovieProfileSuperheroPower:
+      extension: componentOperation
+      operation: copy
+      sourceComponent: mongoEmployee_d
+      sourceAttribute: strength
+      destinationComponent: mongoMovie_d
+      destinationAttribute: superherostrength
+    PrintComponents:
+      extension: componentOperation
+      operation: print
+      #componentNameList: csv_d,mongoEmployee_d,empid_k
+    MongoInsertMovieProfile:
+      extension: mongoOperation
+      processComponentName: orgMongoClient
+      collectionName: movieinfo
+      operation: create
+      keyName: empid_k
+      componentName: mongoMovie_d

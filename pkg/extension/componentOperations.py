@@ -11,8 +11,12 @@ def copy(componentMap, **arg):
 
 
 def create(componentMap, **arg):
-    if "componentValue" in arg:
-        componentMap[arg["componentName"]] = arg["componentValue"]
+    if "attributeName" in arg and "attributeValue" in arg:
+        componentElement = {}
+        componentElement[arg["attributeName"]] = arg["attributeValue"]
+        componentMap[arg["componentName"]] = componentElement
+    else:
+        componentMap[arg["componentName"]] = {}
 
 
 def equals(componentMap, **arg):
@@ -58,10 +62,21 @@ def delete(componentMap, **arg):
         log.warning(f"Component does not exist in the componentMap. Cannot remove " + arg["componentName"])
 
 
+def print(componentMap, **arg):
+    if "componentName" in arg:
+        if arg["componentName"] in componentMap:
+            log.info(componentMap[arg["componentName"]])
+        else:
+            log.info("Component " + arg["componentName"] + " does not exist in the map")
+    else:
+        log.info(componentMap)
+
+
 action_function_map = {
     'copy': copy,
     'create': create,
     'delete': delete,
     'equals': equals,
-    'validation': validation
+    'validation': validation,
+    'print': print
 }
