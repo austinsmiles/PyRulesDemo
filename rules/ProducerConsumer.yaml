@@ -1,0 +1,45 @@
+
+Producer-Employee-Profile:
+  extensionList:
+    ProduceEmployeeIdsExtension:
+      extension: producerConsumerOperation
+      operation: produce_employee_profile
+      listComponent: empIdList
+    AddListToPipeline:
+      extension: pipelineOperation
+      operation: addToPipeline
+      pipelineName: employee-pipeline
+      pipelineSize: 5
+      listComponentName: empIdList
+
+#Consumer-VehicleDetails:
+#  extensionList:
+#    GetFromPipeline:
+#      extension: pipelineOperation
+#      operation: getFromPipeline
+#      pipelineName: employee-pipeline
+#      componentName: employeePipelineElement
+#    ConsumeVehicleExtension:
+#      extension: producerConsumerOperation
+#      operation: consume_vehicle_details
+
+Consumer-CompanyDetails:
+  extensionList:
+    GetFromPipeline:
+      extension: pipelineOperation
+      operation: getFromPipeline
+      pipelineName: employee-pipeline
+      componentName: employeePipelineElement
+    ConsumeCompanyDetailsExtension:
+      extension: producerConsumerOperation
+      operation: consume_company_details
+
+
+ProducerConsumer:
+  pipelineName: employee-pipeline
+  producers:
+    Producer-Employee-Profile: 1
+  consumers:
+    Consumer-CompanyDetails: 2
+    #Consumer-VehicleDetails: 1
+

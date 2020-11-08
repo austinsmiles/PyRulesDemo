@@ -4,11 +4,11 @@ import threading
 import concurrent.futures
 import time
 
+some_global_variable="some_global_value"
 
 class Pipeline(queue.Queue):
     def __init__(self):
-        super().__init__(maxsize=10)
-
+        super().__init__()
 
     def get_message(self, name):
         value = self.get()
@@ -27,6 +27,7 @@ def producer(pipeline, event, name):
                 logging.info(f"Producer-{name} adding message: {x} [queue size: {pipeline.qsize()}]")
             else:
                 logging.info("Queue is full, sleeping for 1s")
+                logging.info(f"global (fm producer)- {some_global_variable}")
                 time.sleep(1)
 
     logging.info(f"Producer-{name} received EXIT event. Exiting")
@@ -37,6 +38,7 @@ def consumer(pipeline, event, name):
     while not event.is_set() or not pipeline.empty():
         message = pipeline.get_message("Consumer")
         logging.info(f"Consumer-{name} consuming message: {message} [queue size: {pipeline.qsize()}]")
+        logging.info(f"global (fm consumer)- {some_global_variable}")
         time.sleep(3)
     logging.info(f"Consumer-{name} received EXIT event. Exiting")
 
