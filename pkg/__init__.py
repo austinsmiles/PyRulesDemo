@@ -10,12 +10,13 @@ import pkg.extension.transportOperations as transportOperation
 import pkg.extension.mongoOperations as mongoOperation
 import pkg.extension.producerConsumerOperations as producerConsumerOperation
 import pkg.extension.pipelineOperations as pipelineOperation
-
+import pkg.extension.redisOperations as redisOperation
 
 extension_map = {
     'componentOperation': componentOperation,
     'transportOperation': transportOperation,
     'mongoOperation': mongoOperation,
     'pipelineOperation': pipelineOperation,
-    'producerConsumerOperation': producerConsumerOperation
+    'producerConsumerOperation': producerConsumerOperation,
+    'redisOperation': redisOperation
 }

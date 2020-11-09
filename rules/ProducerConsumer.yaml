@@ -1,4 +1,11 @@
 
+Initializers:
+  extensionList:
+    RedisInitializer:
+      extension: redisOperation
+
+
+
 Producer-Employee-Profile:
   extensionList:
     ProduceEmployeeIdsExtension:
