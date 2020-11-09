@@ -10,7 +10,9 @@ def initialize(componentMap, **arg):
 
 
 def produce_employee_profile(componentMap,**arg):
-    log.info("get the employee id list here")
+    log.info("get the employee id list here, api fetch started")
+    time.sleep(5) #simulate an api fetch call delay
+    log.info("api fetch complete.")
     arr=[]
     for x in range(100, 120): #simulating a db/api fetch to get list of emp ids
         arr.append(x)

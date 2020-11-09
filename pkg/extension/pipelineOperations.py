@@ -13,14 +13,15 @@ def add_to_pipeline(componentMap, **arg):
     list_component_name = arg['listComponentName']
     list_component = componentMap[list_component_name] if list_component_name in componentMap else []
     pipeline = pkg.components.processComponentMap[pipeline_name]
-    for x in list_component:
-        if pipeline.qsize() < pipeline_size-1:
-            log.info(f"Adding {x} to pipeline")
-            pipeline.set_message(x)
+    length = len(list_component)
+    i = 0
+    while i < length:
+        if pipeline.qsize() < pipeline_size:
+            pipeline.set_message(list_component[i])
+            log.info(f"Added {list_component[i]} to pipeline [i={i}, size: {pipeline.qsize()}]")
+            i = i+1
         else:
-            log.info(f"Adding {x} to pipeline")
-            pipeline.set_message(x)
-            log.info("Pipeline is full, sleeping for 1s")
+            log.info(f"Pipeline is full, sleeping for 1s [i={i}, size: {pipeline.qsize()}]")
             time.sleep(1)
 
 
@@ -29,6 +30,7 @@ def get_from_pipeline(componentMap, **arg):
     component_name = arg['componentName']
     pipeline = pkg.components.processComponentMap[pipeline_name]
     message = pipeline.get_message()
+    log.info(f"Get {message} from pipeline. [size: {pipeline.qsize()}]")
     componentMap[component_name] = message
 
 
