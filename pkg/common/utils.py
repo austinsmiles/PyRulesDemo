@@ -1,5 +1,4 @@
 import logging
-import inspect
 import yaml
 
 log = logging

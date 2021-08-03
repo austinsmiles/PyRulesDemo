@@ -1,0 +1,12 @@
+35: 'message_type'
+207: 'exchange'
+452:
+  group_name: 'mifid_grp'
+  group_captain: 448
+  448: 'party_id'
+  447: 'party_role'
+  100:
+    group_name: 'symbol_grp'
+    group_captain: 101
+    101: 'symbol'
+    102: 'symbol_exchange'
